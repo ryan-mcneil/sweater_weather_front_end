@@ -1,3 +1,13 @@
+# Sweater Weather
+
+### UI Inspiration
+ - https://dribbble.com/shots/4594119-Weather-App#
+ - https://dribbble.com/search?q=weather
+
+### Color Scheme
+
+ - https://coolors.co/cacaaa-eec584-c8ab83-55868c-7f636e
+
 # Self-Directed Front-End Start Kit
 
 ## Initial Setup
@@ -76,4 +86,3 @@ Be sure to `npm run build` and commit before each push to master. A few seconds 
 * [Express](https://expressjs.com/)
 * [Mocha](https://mochajs.org/)
 * [Chai](https://chaijs.com/)
-
