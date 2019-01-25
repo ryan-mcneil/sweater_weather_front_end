@@ -1,0 +1,14 @@
+body {
+  text-align: center;
+}
+h1 {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 50px;
+}
+.login-logout {
+  display: inline-block;
+  position: absolute;
+  right: 50px;
+  margin-top: 30px;
+}

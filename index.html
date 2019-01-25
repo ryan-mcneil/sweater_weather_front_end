@@ -2,16 +2,114 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Quantified Self - Diary</title>
+  <title>Sweater Weather</title>
+  <link rel="stylesheet" type="text/css" href="lib/styles.css">
+
 </head>
 <body>
-  <button type="button" id="login" onclick="login()">Login</button>
+  <header>
+    <h1>Sweater Weather</h1>
+    <div class="login-logout">
+      <button type="button" id="login-btn" onclick="login()">Login</button>
+      <button type="button" id="logout-btn" onclick="logout()" hidden="true">Login</button>
 
-  <input type="text" id="city-input" placeholder="Enter a City">
-  <button type="button" id="search" onclick="locationForecast()">Get Forecast</button>
+    </div>
+  </header>
+  <div class="search">
+    <input type="text" id="search-input" placeholder="Enter a City">
+    <button type="button" id="search-btn" onclick="locationForecast()">Get Forecast</button>
+  </div>
+  <div class="favorites">
+  </div>
+  <div class="weather">
+    <div class="current-weather">
+      <p class="" id="summary"></p>
+      <p class="" id="temp"></p>
+      <p class="" id="high"></p>
+      <p class="" id="low"></p>
+      <p class="" id="location"></p>
+      <p class="" id="date_time"></p>
+      <p class="" id="hourly_summary"></p>
+      <p class="" id="feels_like"></p>
+      <p class="" id="humidity"></p>
+      <p class="" id="visibility"></p>
+      <p class="" id="uv"></p>
+
+    </div>
+    <div class="hourly-forecast">
+      <div id="hourly-1">
+        <p class="hourly-time" id="time-1"></p>
+        <p class="hourly-temp" id="temp-1"></p>
+      </div>
+      <div id="hourly-2">
+        <p class="hourly-time" id="time-2"></p>
+        <p class="hourly-temp" id="temp-2"></p>
+      </div>
+      <div id="hourly-3">
+        <p class="hourly-time" id="time-3"></p>
+        <p class="hourly-temp" id="temp-3"></p>
+      </div>
+      <div id="hourly-4">
+        <p class="hourly-time" id="time-4"></p>
+        <p class="hourly-temp" id="temp-4"></p>
+      </div>
+      <div id="hourly-5">
+        <p class="hourly-time" id="time-5"></p>
+        <p class="hourly-temp" id="temp-5"></p>
+      </div>
+      <div id="hourly-6">
+        <p class="hourly-time" id="time-6"></p>
+        <p class="hourly-temp" id="temp-6"></p>
+      </div>
+      <div id="hourly-7">
+        <p class="hourly-time" id="time-7"></p>
+        <p class="hourly-temp" id="temp-7"></p>
+      </div>
+      <div id="hourly-8">
+        <p class="hourly-time" id="time-8"></p>
+        <p class="hourly-temp" id="temp-8"></p>
+      </div>
+    </div>
+    <div class="daily-forecast">
+      <div id="daily-1">
+        <p class="daily-day" id="day-1"></p>
+        <p class="daily-summary" id="summary-1"></p>
+        <p class="daily-precip" id="precip-1"></p>
+        <p class="daily-high" id="high-1"></p>
+        <p class="daily-low" id="low-1"></p>
+      </div>
+      <div id="daily-2">
+        <p class="daily-day" id="day-2"></p>
+        <p class="daily-summary" id="summary-2"></p>
+        <p class="daily-precip" id="precip-2"></p>
+        <p class="daily-high" id="high-2"></p>
+        <p class="daily-low" id="low-2"></p>
+      </div>
+      <div id="daily-3">
+        <p class="daily-day" id="day-3"></p>
+        <p class="daily-summary" id="summary-3"></p>
+        <p class="daily-precip" id="precip-3"></p>
+        <p class="daily-high" id="high-3"></p>
+        <p class="daily-low" id="low-3"></p>
+      </div>
+      <div id="daily-4">
+        <p class="daily-day" id="day-4"></p>
+        <p class="daily-summary" id="summary-4"></p>
+        <p class="daily-precip" id="precip-4"></p>
+        <p class="daily-high" id="high-4"></p>
+        <p class="daily-low" id="low-4"></p>
+      </div>
+      <div id="daily-5">
+        <p class="daily-day" id="day-5"></p>
+        <p class="daily-summary" id="summary-5"></p>
+        <p class="daily-precip" id="precip-5"></p>
+        <p class="daily-high" id="high-5"></p>
+        <p class="daily-low" id="low-5"></p>
+      </div>
+    </div>
+  </div>
       <!--  the a tag below can link you to another HTML page  -->
       <!--  if you click the button in the browser right now, you'll get an error because that is not a real file path -->
-      <a href="<file path"><button class="default-button">GO TO OTHER PAGE</button></a>
     <script
     src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'>
   </script>
