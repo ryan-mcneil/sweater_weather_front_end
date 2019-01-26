@@ -17,7 +17,7 @@
   </header>
   <div class="search">
     <input type="text" id="search-input" placeholder="Enter a City">
-    <button type="button" id="search-btn" onclick="locationForecast()">Get Forecast</button>
+    <button type="button" id="search-btn">Get Forecast</button>
   </div>
   <div class="favorites">
   </div>
@@ -71,6 +71,13 @@
       </div>
     </div>
     <div class="daily-forecast">
+      <div id="daily-0">
+        <p class="daily-day" id="day-0"></p>
+        <p class="daily-summary" id="summary-0"></p>
+        <p class="daily-precip" id="precip-0"></p>
+        <p class="daily-high" id="high-0"></p>
+        <p class="daily-low" id="low-0"></p>
+      </div>
       <div id="daily-1">
         <p class="daily-day" id="day-1"></p>
         <p class="daily-summary" id="summary-1"></p>
@@ -99,13 +106,6 @@
         <p class="daily-high" id="high-4"></p>
         <p class="daily-low" id="low-4"></p>
       </div>
-      <div id="daily-5">
-        <p class="daily-day" id="day-5"></p>
-        <p class="daily-summary" id="summary-5"></p>
-        <p class="daily-precip" id="precip-5"></p>
-        <p class="daily-high" id="high-5"></p>
-        <p class="daily-low" id="low-5"></p>
-      </div>
     </div>
   </div>
       <!--  the a tag below can link you to another HTML page  -->
@@ -113,7 +113,7 @@
     <script
     src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'>
   </script>
-  <script src="main.bundle.js"></script>
+  <!-- <script src="main.bundle.js"></script> -->
   <script src="./lib/index.js"></script>
 </body>
 </html>
