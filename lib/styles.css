@@ -39,21 +39,16 @@ margin-left: 30px;
 button:hover {
   background-color: #2A2D34;
   color: #80C2AF;
-
 }
 button:disabled {
   background-color: #D0D2D3;
   color: #2A2D34;
-
 }
-.login-logout {
+.login {
   display: inline-block;
   position: absolute;
   right: 50px;
   margin-top: 30px;
-}
-.favorites {
-
 }
 .current-weather {
   color: #80C2AF;
@@ -84,44 +79,35 @@ button:disabled {
   grid-area: 4 / 2 / span 2 / span 2;
   font-size: 80px;
   margin: 0;
-
 }
 #summary {
   grid-area: 5 / 4 / span 1 / span 2;
   text-transform: capitalize;
-
 }
 #feels-like {
   grid-area: 6 / 1 / span 1 / span 2;
 }
 #high {
   grid-area: 6 / 3 / span 1 / span 2;
-
 }
 #low {
   grid-area: 6 / 5 / span 1 / span 2;
-
 }
 #humidity {
   grid-area: 7 / 1 / span 1 / span 2;
-
 }
 #visibility {
   grid-area: 7 / 3 / span 1 / span 2;
-
 }
 #uv {
   grid-area: 7 / 5 / span 1 / span 2;
-
 }
 #hourly-summary {
   grid-area: 8 / 2 / span 1 / span 4;
-
 }
 .hourly-forecast {
   position: relative;
   top: 220px;
-
 }
 .hourly-forecast div {
   background: #A0DDE6;
@@ -132,8 +118,6 @@ button:disabled {
   left: 50%;
   width: 70px;
   margin: -35px;
-
-
 }
 .deg20 { transform: rotate(-20deg) translate(600%) rotate(20deg); }
 .deg40 { transform: rotate(-40deg) translate(600%) rotate(40deg); }
