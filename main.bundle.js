@@ -70,7 +70,7 @@
 	});
 
 	var getForecast = function getForecast() {
-	  var location = document.querySelector('#search-input').value;
+	  var location = $('#search-input').val();
 	  var url = 'https://sweater-weather-288.herokuapp.com/api/v1/forecast?location=' + location;
 	  fetch(url).then(function (response) {
 	    return response.json();
@@ -121,10 +121,9 @@
 	      location: loc,
 	      api_key: key
 	    })
-	  }).catch(function (error) {
+	  }).then(getFavorites()).catch(function (error) {
 	    return console.error(error);
 	  });
-	  getFavorites();
 	};
 
 	var getFavorites = function getFavorites() {
@@ -142,18 +141,20 @@
 
 	var displayFavorites = function displayFavorites() {
 	  var data = JSON.parse(sessionStorage.getItem("favorites"));
-	  document.querySelector(".favorites-list").innerHTML = "";
+	  $(".favorites-list").remove();
 	  if (data) {
 	    $(".favorites").css("visibility", "visible");
-	    var favs = document.querySelector(".favorites-list");
+	    var favs = $(".favorites");
+	    var favList = $("<div>", { "class": "favorites-list" });
+	    favs.append(favList);
 	    data.forEach(function (fav) {
-	      var btn = document.createElement("button");
-	      var text = document.createTextNode(fav["location"]);
-	      btn.appendChild(text);
-	      btn.addEventListener('click', function () {
+	      var btn = $("<button>");
+	      var text = document.createTextNode(formatLocation(fav["location"]));
+	      btn.append(text);
+	      btn.click(function () {
 	        displayFavoriteForecast(fav["location"]);
 	      });
-	      favs.appendChild(btn);
+	      favList.append(btn);
 	      $(".favorites h3").text("");
 	    });
 	  } else {
@@ -166,7 +167,7 @@
 	  $("#temp").text(data["temp"] + '\xB0');
 	  $("#high").text('High:\xA0\xA0\xA0' + data["high"] + '\xB0');
 	  $("#low").text('Low:\xA0\xA0\xA0' + data["low"] + '\xB0');
-	  $("#location").text(data["location"]);
+	  $("#location").text(formatLocation(data["location"]));
 	  $("#date-time").text(data["date_time"]);
 	  $("#hourly-summary").text(data["hourly_summary"]);
 	  $("#feels-like").text('Feels Like:\xA0\xA0\xA0' + data["feels_like"] + '\xB0');
@@ -194,25 +195,19 @@
 	};
 
 	var displayFavoriteForecast = function displayFavoriteForecast(location) {
-	  var data = JSON.parse(sessionStorage.getItem("favorites"));
-	  var favorite = data.find(function (obj) {
-	    return obj.location === location;
-	  });
+	  var favorite_data = favorite(location);
 
 	  $(".weather").css("visibility", "visible");
-	  displayCurrentWeather(favorite["current_weather"]["current_weather"]);
-	  displayHourlyForecast(favorite["current_weather"]["hourly_forecast"]);
-	  displayDailyForecast(favorite["current_weather"]["daily_forecast"]);
+	  displayCurrentWeather(favorite_data["current_weather"]["current_weather"]);
+	  displayHourlyForecast(favorite_data["current_weather"]["hourly_forecast"]);
+	  displayDailyForecast(favorite_data["current_weather"]["daily_forecast"]);
 	};
 
 	var setFavoriteButton = function setFavoriteButton(location) {
 	  if (loggedIn()) {
 	    $('#add-favorite-btn').css("visibility", "visible");
-	    var data = JSON.parse(sessionStorage.getItem("favorites"));
-	    var favorite = data.find(function (obj) {
-	      return obj.location === location;
-	    });
-	    if (favorite) {
+
+	    if (favorite(location)) {
 	      $('#add-favorite-btn').text("Already a Favorite");
 	      $('#add-favorite-btn').prop('disabled', true);
 	    } else {
@@ -222,6 +217,13 @@
 	  } else {
 	    $('#add-favorite-btn').css("visibility", "hidden");
 	  }
+	};
+
+	var favorite = function favorite(location) {
+	  var data = JSON.parse(sessionStorage.getItem("favorites"));
+	  return data.find(function (obj) {
+	    return formatLocation(obj.location) == formatLocation(location);
+	  });
 	};
 
 	var checkUser = function checkUser() {
@@ -237,6 +239,10 @@
 
 	var loggedIn = function loggedIn() {
 	  return sessionStorage.getItem("user_id");
+	};
+
+	var formatLocation = function formatLocation(location) {
+	  return location.split(/,\s*|\s/).join(", ").toUpperCase();
 	};
 
 /***/ })

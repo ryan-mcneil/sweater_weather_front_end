@@ -22,8 +22,6 @@ Sweater Weather is a simple, single page application that displays the current w
 
  - The application currently does not support the ability to delete favorites, but will be able to in future iterations.
 
- - The application currently does not parse and update location names to display them correctly. It sends the input to the backend as-is. Error handling for this will be introduced in future iterations.
-
 ## Testing
 
  - Against my better judgement, the front end of this application is not tested. My experience testing in Node Mocha is limited, and with 5 days to build the project, I decided to do all of my testing live, in the console. SAD.

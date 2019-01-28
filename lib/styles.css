@@ -48,7 +48,10 @@ button:disabled {
   display: inline-block;
   position: absolute;
   right: 50px;
-  margin-top: 30px;
+  margin-top: 10px;
+}
+.favorites button {
+  margin: 10px;
 }
 .current-weather {
   color: #80C2AF;
