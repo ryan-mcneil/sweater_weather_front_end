@@ -67,6 +67,11 @@
 	    return login();
 	  });
 	  // $('#logout-btn').click( () => login()); not implemented
+
+	  $('#add-favorite-btn').click(function () {
+	    var location = $('#location').text();
+	    postFavorite(location);
+	  });
 	});
 
 	var getForecast = function getForecast() {
@@ -104,8 +109,7 @@
 	  });
 	};
 
-	var postFavorite = function postFavorite() {
-	  var loc = "denver,co";
+	var postFavorite = function postFavorite(loc) {
 	  var key = sessionStorage.getItem("api_key");
 	  var url = 'https://sweater-weather-288.herokuapp.com/api/v1/favorites';
 	  fetch(url, {
@@ -167,6 +171,7 @@
 	  $("#humidity").text('Humidity:\xA0\xA0\xA0' + Math.round(data["humidity"] * 100) + '%');
 	  $("#visibility").text('Visibility:\xA0\xA0\xA0' + data["visibility"] + ' miles');
 	  $("#uv").text('UV Index:\xA0\xA0\xA0' + data["uv"]);
+	  setFavoriteButton(data["location"]);
 	};
 
 	var displayHourlyForecast = function displayHourlyForecast(data) {
@@ -186,16 +191,30 @@
 	  });
 	};
 
-	var displayFavoriteForecast = function displayFavoriteForecast(city) {
+	var displayFavoriteForecast = function displayFavoriteForecast(location) {
 	  var data = JSON.parse(sessionStorage.getItem("favorites"));
 	  var favorite = data.find(function (obj) {
-	    return obj.location === city;
+	    return obj.location === location;
 	  });
 
 	  $(".weather").css("visibility", "visible");
 	  displayCurrentWeather(favorite["current_weather"]["current_weather"]);
 	  displayHourlyForecast(favorite["current_weather"]["hourly_forecast"]);
 	  displayDailyForecast(favorite["current_weather"]["daily_forecast"]);
+	};
+
+	var setFavoriteButton = function setFavoriteButton(location) {
+	  var data = JSON.parse(sessionStorage.getItem("favorites"));
+	  var favorite = data.find(function (obj) {
+	    return obj.location === location;
+	  });
+	  if (favorite) {
+	    $('#add-favorite-btn').text("Already a Favorite");
+	    $('#add-favorite-btn').prop('disabled', true);
+	  } else {
+	    $('#add-favorite-btn').text("Add to Favorites");
+	    $('#add-favorite-btn').prop('disabled', false);
+	  }
 	};
 
 /***/ })
