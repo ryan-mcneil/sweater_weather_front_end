@@ -50,6 +50,9 @@
 	// import _ from 'underscore';
 	// eval(pry.it)
 	$(document).ready(function () {
+	  if (sessionStorage.getItem("user_id")) {
+	    displayFavorites();
+	  }
 	  $('#search-btn').click(function () {
 	    return getForecast();
 	  });
@@ -67,12 +70,12 @@
 	});
 
 	var getForecast = function getForecast() {
-	  console.log("hi");
 	  var location = document.querySelector('#search-input').value;
 	  var url = 'https://sweater-weather-288.herokuapp.com/api/v1/forecast?location=' + location;
 	  fetch(url).then(function (response) {
 	    return response.json();
 	  }).then(function (data) {
+	    $(".weather").css("visibility", "visible");
 	    displayCurrentWeather(data["data"]["attributes"]["current_weather"]);
 	    displayHourlyForecast(data["data"]["attributes"]["hourly_forecast"]);
 	    displayDailyForecast(data["data"]["attributes"]["daily_forecast"]);
@@ -95,10 +98,10 @@
 	  }).then(function (data) {
 	    sessionStorage.setItem("user_id", data["data"]["id"]);
 	    sessionStorage.setItem("api_key", data["data"]["attributes"]["api_key"]);
+	    getFavorites();
 	  }).catch(function (error) {
 	    return console.error(error);
 	  });
-	  listFavorites();
 	};
 
 	var postFavorite = function postFavorite() {
@@ -115,19 +118,36 @@
 	  }).catch(function (error) {
 	    return console.error(error);
 	  });
-	  listFavorites();
+	  getFavorites();
 	};
 
-	var listFavorites = function listFavorites() {
+	var getFavorites = function getFavorites() {
 	  var api_key = sessionStorage.getItem("api_key");
 	  var url = 'https://sweater-weather-288.herokuapp.com/api/v1/favorites?api_key=' + api_key;
 	  fetch(url).then(function (response) {
 	    return response.json();
 	  }).then(function (data) {
-	    return console.log(data);
+	    sessionStorage.setItem("favorites", JSON.stringify(data["data"]["attributes"]["favorites"]));
+	    displayFavorites();
 	  }).catch(function (error) {
 	    return console.error(error);
 	  });
+	};
+
+	var displayFavorites = function displayFavorites() {
+	  var data = JSON.parse(sessionStorage.getItem("favorites"));
+	  if (data) {
+	    $(".favorites").css("visibility", "visible");
+	    var favs = document.querySelector(".favorites");
+	    data.forEach(function (datum) {
+	      var btn = document.createElement("button");
+	      var text = document.createTextNode(datum["location"]);
+	      btn.appendChild(text);
+	      favs.appendChild(btn);
+	    });
+	  } else {
+	    $(".favorites h3").text("No Favorites Yet!");
+	  }
 	};
 
 	var displayCurrentWeather = function displayCurrentWeather(data) {
@@ -163,7 +183,7 @@
 	  data.forEach(function (day, index) {
 	    $('#day-' + index).text('' + day["day"]);
 	    $('#summary-' + index).text('' + day["summary"]);
-	    $('#precip-' + index).text(Math.round(day["precip"] * 100) + '%');
+	    $('#precip-' + index).text(Math.round(day["precip"] * 100) + '% Chance of Precipitation');
 	    $('#high-' + index).text('High:\xA0\xA0\xA0\xA0' + day["high"] + '\xB0');
 	    $('#low-' + index).text('Low:\xA0\xA0\xA0\xA0' + day["low"] + '\xB0');
 	  });
