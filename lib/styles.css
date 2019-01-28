@@ -51,10 +51,10 @@ margin-left: 30px;
   text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
   font-size: 20px;
   width: 650px;
-  height: 400px;
+  height: 450px;
   margin: 180px auto 0;
   display: grid;
-  grid-template-rows: 1fr 1fr 3fr 3fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 3fr 3fr 1fr 1fr 1fr;
   grid-template-columns: 2fr 2fr 3fr 3fr 2fr 2fr;
   align-items: center;
 }
@@ -63,46 +63,50 @@ margin-left: 30px;
   font-size: 40px;
   margin: 0;
 }
-#date-time {
+#add-favorite-btn {
   grid-area: 2 / 3 / span 1 / span 2;
+  margin-top: 20px;
+}
+#date-time {
+  grid-area: 3 / 3 / span 1 / span 2;
   font-size: 24px;
 }
 #temp {
-  grid-area: 3 / 2 / span 2 / span 2;
+  grid-area: 4 / 2 / span 2 / span 2;
   font-size: 80px;
   margin: 0;
 
 }
 #summary {
-  grid-area: 4 / 4 / span 1 / span 2;
+  grid-area: 5 / 4 / span 1 / span 2;
   text-transform: capitalize;
 
 }
 #feels-like {
-  grid-area: 5 / 1 / span 1 / span 2;
+  grid-area: 6 / 1 / span 1 / span 2;
 }
 #high {
-  grid-area: 5 / 3 / span 1 / span 2;
-
-}
-#low {
-  grid-area: 5 / 5 / span 1 / span 2;
-
-}
-#humidity {
-  grid-area: 6 / 1 / span 1 / span 2;
-
-}
-#visibility {
   grid-area: 6 / 3 / span 1 / span 2;
 
 }
-#uv {
+#low {
   grid-area: 6 / 5 / span 1 / span 2;
 
 }
+#humidity {
+  grid-area: 7 / 1 / span 1 / span 2;
+
+}
+#visibility {
+  grid-area: 7 / 3 / span 1 / span 2;
+
+}
+#uv {
+  grid-area: 7 / 5 / span 1 / span 2;
+
+}
 #hourly-summary {
-  grid-area: 7 / 2 / span 1 / span 4;
+  grid-area: 8 / 2 / span 1 / span 4;
 
 }
 .hourly-forecast {
