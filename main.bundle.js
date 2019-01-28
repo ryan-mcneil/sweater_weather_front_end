@@ -87,6 +87,7 @@
 	var login = function login() {
 	  if (loggedIn()) {
 	    sessionStorage.clear();
+	    setFavoriteButton();
 	    checkUser();
 	  } else {
 	    var url = 'https://sweater-weather-288.herokuapp.com/api/v1/sessions';
