@@ -136,14 +136,17 @@
 
 	var displayFavorites = function displayFavorites() {
 	  var data = JSON.parse(sessionStorage.getItem("favorites"));
-	  document.querySelector(".favorites").innerHTML = "";
+	  document.querySelector(".favorites-list").innerHTML = "";
 	  if (data) {
 	    $(".favorites").css("visibility", "visible");
-	    var favs = document.querySelector(".favorites");
-	    data.forEach(function (datum) {
+	    var favs = document.querySelector(".favorites-list");
+	    data.forEach(function (fav) {
 	      var btn = document.createElement("button");
-	      var text = document.createTextNode(datum["location"]);
+	      var text = document.createTextNode(fav["location"]);
 	      btn.appendChild(text);
+	      btn.addEventListener('click', function () {
+	        displayFavoriteForecast(fav["location"]);
+	      });
 	      favs.appendChild(btn);
 	      $(".favorites h3").text("");
 	    });
@@ -164,14 +167,6 @@
 	  $("#humidity").text('Humidity:\xA0\xA0\xA0' + Math.round(data["humidity"] * 100) + '%');
 	  $("#visibility").text('Visibility:\xA0\xA0\xA0' + data["visibility"] + ' miles');
 	  $("#uv").text('UV Index:\xA0\xA0\xA0' + data["uv"]);
-
-	  // for (const [key, value] of Object.entries(data)) {
-	  //   console.log(value);
-	  //   $(`#${key}`).text(value);
-	  // }
-	  //  data(data, (key, value) => {
-	  //   $(`#${key}`).text(value);
-	  // })
 	};
 
 	var displayHourlyForecast = function displayHourlyForecast(data) {
@@ -189,6 +184,18 @@
 	    $('#high-' + index).text('High:\xA0\xA0\xA0\xA0' + day["high"] + '\xB0');
 	    $('#low-' + index).text('Low:\xA0\xA0\xA0\xA0' + day["low"] + '\xB0');
 	  });
+	};
+
+	var displayFavoriteForecast = function displayFavoriteForecast(city) {
+	  var data = JSON.parse(sessionStorage.getItem("favorites"));
+	  var favorite = data.find(function (obj) {
+	    return obj.location === city;
+	  });
+
+	  $(".weather").css("visibility", "visible");
+	  displayCurrentWeather(favorite["current_weather"]["current_weather"]);
+	  displayHourlyForecast(favorite["current_weather"]["hourly_forecast"]);
+	  displayDailyForecast(favorite["current_weather"]["daily_forecast"]);
 	};
 
 /***/ })
