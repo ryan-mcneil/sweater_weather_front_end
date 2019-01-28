@@ -88,12 +88,12 @@ margin-left: 30px;
   grid-area: 5 / 1 / span 1 / span 2;
   /* border: green 1px solid; */
 }
-#low {
+#high {
   grid-area: 5 / 3 / span 1 / span 2;
   /* border: green 1px solid; */
 
 }
-#high {
+#low {
   grid-area: 5 / 5 / span 1 / span 2;
   /* border: green 1px solid; */
 
