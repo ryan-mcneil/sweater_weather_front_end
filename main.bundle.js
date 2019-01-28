@@ -144,6 +144,7 @@
 	      var text = document.createTextNode(datum["location"]);
 	      btn.appendChild(text);
 	      favs.appendChild(btn);
+	      $(".favorites h3").text("");
 	    });
 	  } else {
 	    $(".favorites h3").text("No Favorites Yet!");
