@@ -136,6 +136,7 @@
 
 	var displayFavorites = function displayFavorites() {
 	  var data = JSON.parse(sessionStorage.getItem("favorites"));
+	  document.querySelector(".favorites").innerHTML = "";
 	  if (data) {
 	    $(".favorites").css("visibility", "visible");
 	    var favs = document.querySelector(".favorites");
