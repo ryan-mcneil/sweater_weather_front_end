@@ -46,13 +46,9 @@
 
 	'use strict';
 
-	// import pry from 'pryjs';
-	// import _ from 'underscore';
-	// eval(pry.it)
 	$(document).ready(function () {
-	  if (sessionStorage.getItem("user_id")) {
-	    displayFavorites();
-	  }
+	  checkUser();
+
 	  $('#search-btn').click(function () {
 	    return getForecast();
 	  });
@@ -66,7 +62,6 @@
 	  $('#login-btn').click(function () {
 	    return login();
 	  });
-	  // $('#logout-btn').click( () => login()); not implemented
 
 	  $('#add-favorite-btn').click(function () {
 	    var location = $('#location').text();
@@ -90,23 +85,29 @@
 	};
 
 	var login = function login() {
-	  var url = 'https://sweater-weather-288.herokuapp.com/api/v1/sessions';
-	  fetch(url, {
-	    method: 'POST',
-	    headers: { 'Content-Type': 'application/json' },
-	    body: JSON.stringify({
-	      email: 'whatever@example.com',
-	      password: 'password'
-	    })
-	  }).then(function (response) {
-	    return response.json();
-	  }).then(function (data) {
-	    sessionStorage.setItem("user_id", data["data"]["id"]);
-	    sessionStorage.setItem("api_key", data["data"]["attributes"]["api_key"]);
-	    getFavorites();
-	  }).catch(function (error) {
-	    return console.error(error);
-	  });
+	  if (loggedIn()) {
+	    sessionStorage.clear();
+	    checkUser();
+	  } else {
+	    var url = 'https://sweater-weather-288.herokuapp.com/api/v1/sessions';
+	    fetch(url, {
+	      method: 'POST',
+	      headers: { 'Content-Type': 'application/json' },
+	      body: JSON.stringify({
+	        email: 'whatever@example.com',
+	        password: 'password'
+	      })
+	    }).then(function (response) {
+	      return response.json();
+	    }).then(function (data) {
+	      sessionStorage.setItem("user_id", data["data"]["id"]);
+	      sessionStorage.setItem("api_key", data["data"]["attributes"]["api_key"]);
+	      $("#login-btn").text("Sign Out");
+	      getFavorites();
+	    }).catch(function (error) {
+	      return console.error(error);
+	    });
+	  }
 	};
 
 	var postFavorite = function postFavorite(loc) {
@@ -204,17 +205,37 @@
 	};
 
 	var setFavoriteButton = function setFavoriteButton(location) {
-	  var data = JSON.parse(sessionStorage.getItem("favorites"));
-	  var favorite = data.find(function (obj) {
-	    return obj.location === location;
-	  });
-	  if (favorite) {
-	    $('#add-favorite-btn').text("Already a Favorite");
-	    $('#add-favorite-btn').prop('disabled', true);
+	  if (loggedIn()) {
+	    $('#add-favorite-btn').css("visibility", "visible");
+	    var data = JSON.parse(sessionStorage.getItem("favorites"));
+	    var favorite = data.find(function (obj) {
+	      return obj.location === location;
+	    });
+	    if (favorite) {
+	      $('#add-favorite-btn').text("Already a Favorite");
+	      $('#add-favorite-btn').prop('disabled', true);
+	    } else {
+	      $('#add-favorite-btn').text("Add to Favorites");
+	      $('#add-favorite-btn').prop('disabled', false);
+	    }
 	  } else {
-	    $('#add-favorite-btn').text("Add to Favorites");
-	    $('#add-favorite-btn').prop('disabled', false);
+	    $('#add-favorite-btn').css("visibility", "hidden");
 	  }
+	};
+
+	var checkUser = function checkUser() {
+	  if (loggedIn()) {
+	    displayFavorites();
+	    $("#login-btn").text("Sign Out");
+	  } else {
+	    $(".weather").css("visibility", "hidden");
+	    $(".favorites").css("visibility", "hidden");
+	    $("#login-btn").text("Sign In");
+	  }
+	};
+
+	var loggedIn = function loggedIn() {
+	  return sessionStorage.getItem("user_id");
 	};
 
 /***/ })
