@@ -1,5 +1,19 @@
 # Sweater Weather
 
+Sweater Weather is a simple, single page application that displays the current weather and forecast for a given location. The application hits various endpoints of the Sweater Weather API, deployed to https://sweater-weather-288.herokuapp.com. Please see the documentation
+
+## Initial Setup
+
+## How to use
+
+## Known Issues
+
+## Testing
+
+## How to Contribute
+
+## Tech Stack
+
 ### UI Inspiration
  - https://dribbble.com/shots/4594119-Weather-App#
  - https://dribbble.com/search?q=weather
